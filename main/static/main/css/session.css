@@ -1,0 +1,30 @@
+body{
+	font-size: 18px;
+	font-family: arial;
+	color: #555;
+	margin: 0;
+	padding: 0;
+}
+#container{
+	height: 100vh;
+	width: 100%;
+	position: relative;
+}
+#container .box{
+	text-align: center;
+	position: absolute;
+	top: 20%;
+	right: 30%;
+	left: 30%;
+	bottom: 60%;
+}
+#session-block, #session-start, #fb-login-button{
+	display: none;
+}
+#session-block span{
+	color: #92a500;
+}
+#session-block h1{
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	color: #cdd688;
+}

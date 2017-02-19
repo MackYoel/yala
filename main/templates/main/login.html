@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{app_name}}</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/session.css' %}">
+</head>
+<body>
+
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  window.fbAsyncInit = function() {
+    console.log('init')
+    FB.init({
+      appId      : '739123346263836',
+      cookie     : false,  // enable cookies to allow the server to access 
+                          // the session
+      xfbml      : true,  // parse social plugins on this page
+      version    : 'v2.8' // use graph api version 2.8
+    });
+    FB.getLoginStatus(function(response) {
+        statusHandler(response);
+    });
+  };
+</script>
+
+<div id="container">
+
+    <div class="box">
+			<div id="session-block">
+				<h1>{{app_name}}</h1>
+				<p>
+					<strong>Qué es? </strong>pretende ayudar <span>a dar seguimiento</span> a lo que sea que te hayas propuesto aprender =)
+				</p>
+				{% if is_authenticated %}
+					<button id="go-home">yala!</button>
+				{% else %}
+					<button id="session-start">continuar</button>
+					<div id="fb-login-button"
+						class="fb-login-button"
+						scope="email"
+						data-max-rows="1"
+						data-size="large"
+						data-show-faces="false"
+						data-auto-logout-link="false" onlogin="onLoggedIn();"></div>
+				{% endif %}
+			</div>
+			<img id="s-loader" src="{% static 'main/imgs/box.gif' %}">
+    </div>
+
+    <!-- <div class="box">flex item
+        <p>DIV #2</p>
+    </div> -->
+
+</div>
+
+
+<!-- <div class="session-block">
+	<img id="s-loader" src="{% static 'main/imgs/loader.gif' %}">
+
+	<div>
+		<div class="fb-login-button" scope="email" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="onLoggedIn();"></div>
+	</div>
+</div>
+
+ -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.2/jquery.min.js"></script>
+<script>
+	var session_exists = {% if is_authenticated %}true{% else %}false{% endif %}
+	var csrf_token = '{{ csrf_token }}'
+</script>
+<script src="{% static 'main/js/session.js' %}"></script>
+</body>
+</html>
