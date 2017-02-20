@@ -1,0 +1,64 @@
+<div class="row" id="tabs-block">
+  <div class="col s12">
+    <ul class="tabs">
+      <li ng-repeat="a in areas" class="tab col s3">
+        <a click-to-first-tab>{{a.name}}</a>
+      </li>
+      
+      <!-- <li class="tab col s3"><a class="active" href="#test1">aa</a></li> -->
+      <!-- <li class="tab col s3"><a  href="#test2">Test 2</a></li>
+      <li class="tab col s3"><a href="#test4">Test 4</a></li> -->
+    </ul>
+  </div>
+
+  <!-- <div ng-cloak ng-repeat="a in areas"> -->
+  <div ng-repeat="c in contents" class="col s12" show-first-content-tab>{{c.name}} {{$index}}</div>
+  <!-- </div> -->
+  <!-- <div id="test2" class="col s12">Test sss2</div>
+  <div id="test4" class="col s12">Test 4</div> -->
+</div>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large green">
+    <i class="large material-icons">add</i>
+  </a>
+  <ul>
+    <li>
+      Área<a id="add-area" ng-click="addArea()" class="btn-floating green"><i class="material-icons">library_books</i></a>
+    </li>
+    <li>
+      Tema<a class="btn-floating green"><i class="material-icons">assignment</i></a>
+    </li>
+    <li>
+      Problema<a class="btn-floating green"><i class="material-icons">note_add</i></a>
+    </li>
+  </ul>
+</div>
+
+<!-- Modal Trigger -->
+<!-- <a class="waves-effect waves-light btn" href="#modal1">Modal</a> -->
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h5 class="center">Agregar nueva área</h5>
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="area_name" type="text" class="validate" required>
+            <label for="area_name">Nombre</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat light-green">Agregar</a>
+  </div>
+</div>
+<script type="text/javascript">
+  $('.modal').modal();
+  $('ul.tabs').tabs()
+</script>

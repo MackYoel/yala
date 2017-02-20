@@ -7,11 +7,18 @@ from .forms import PersonForm
 from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from project.settings import APP_NAME
+from .models import Person
+from services.serializers import PersonSerializer
+import time
 
 
 @login_required
 def home(req):
+    file_version = time.time()
     app_name = APP_NAME
+    user = Person.objects.get(pk=req.user.pk)
+    serializer = PersonSerializer(user, many=False)
+    user = serializer.data
     return render(req, 'main/home.html', locals())
 
 

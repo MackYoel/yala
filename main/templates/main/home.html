@@ -1,17 +1,58 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html ng-app="mainApp" ng-init="user={{user|safe}}">
 <head>
   <title>{{app_name}}</title>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'main/css/home.css' %}?{{file_version}}">
 </head>
-<body>
-<form method="POST" action="{% url 'main:logout_handler' %}">
-  {% csrf_token %}
-  <input type="submit" name="logout" value="logOut">
-</form>
+<body ng-controller="MainCtrl">
 
-<br><br>
-<a href="{% url 'main:LoginHandler' %}">go login</a>
+<div id="loader">
+  <img src="{% static 'main/imgs/box.gif' %}"><br>
+  &nbsp;&nbsp;please wait...
+</div>
 
+<div id="main-container">
+  
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="{% url 'main:logout_handler' %}">cerrar&nbsp;sesión</a></li>
+  </ul>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo" id="app-name">{{app_name}}</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse menu"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li id="avatar">
+          <a class="dropdown-button" href="#!" data-activates="dropdown1">
+          <img src="{{user.picture}}">
+          <i class="material-icons right">arrow_drop_down</i></a>
+        </li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="{% url 'main:logout_handler' %}">cerrar&nbsp;sesión</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div ng-include src="'{% static 'main/layout/content.html' %}?{{file_version}}'" ></div>
+
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+<script src="https://code.angularjs.org/1.5.0/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.5.1/angular-resource.min.js"></script>
+<script>
+  $(".button-collapse").sideNav();
+</script>
+<script src="{% static 'main/js/home.js' %}?{{file_version}}"></script>
+<script src="{% static 'main/js/services.js' %}?{{file_version}}"></script>
 </body>
 </html>

@@ -1,0 +1,50 @@
+body{
+	/*height: 1200px;*/
+}
+.menu{
+	color: #555;
+}
+#loader{
+	text-align: center;
+	margin-top: 30vh;
+}
+#main-container{
+	display: none;
+}
+#avatar img{
+	margin-top: 8px;
+	border-radius: 50%;
+}
+#avatar i{
+	color: #7cb342;
+}
+#avatar a{
+	height: 65px;
+}
+#app-name{
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	color: #7cb342;
+	font-weight: bold;
+}
+nav{
+	background: #fff;
+	margin-bottom: .5em;
+}
+.floating-btn{
+	text-align: right;
+}
+.tabs li a {
+    color: #00acc1 !important;
+}
+.tabs .indicator {
+    background-color: #00acc1 !important;
+}
+.center{
+	text-align: center;
+}
+
+@media (min-width: 993px) {
+	#app-name{
+		margin-left: .5em;
+	}
+}

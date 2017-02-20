@@ -3,7 +3,8 @@
 <html>
 <head>
 	<title>{{app_name}}</title>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="{% static 'main/css/session.css' %}">
 </head>
 <body>
@@ -33,7 +34,6 @@
 </script>
 
 <div id="container">
-
     <div class="box">
 			<div id="session-block">
 				<h1>{{app_name}}</h1>
@@ -55,23 +55,8 @@
 			</div>
 			<img id="s-loader" src="{% static 'main/imgs/box.gif' %}">
     </div>
-
-    <!-- <div class="box">flex item
-        <p>DIV #2</p>
-    </div> -->
-
 </div>
 
-
-<!-- <div class="session-block">
-	<img id="s-loader" src="{% static 'main/imgs/loader.gif' %}">
-
-	<div>
-		<div class="fb-login-button" scope="email" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="onLoggedIn();"></div>
-	</div>
-</div>
-
- -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.2/jquery.min.js"></script>
 <script>
