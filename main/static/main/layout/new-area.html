@@ -1,0 +1,28 @@
+<div id="new-area-modal" class="modal">
+    <div class="modal-content">
+      <h5 class="center">Nueva área</h5>
+      <div class="row">
+        <form name="areaForm" class="col s12" ng-submit="saveArea(area)" novalidate>
+          <div class="row">
+            <div class="input-field col s10">
+              <input autofocus="true"
+                name="name" 
+                ng-model="area.name"
+                id="area_name" type="text" class="validate" required>
+              <label for="area_name">Nombre</label>
+            </div>
+            <div class="col s2">
+              <button class="btn waves-effect waves-light light-green send-button" type="submit" name="action"
+                ng-disabled="areaForm.$invalid || loading">
+                <span ng-show="loading">...</span>
+                <i ng-hide="loading" class="tiny material-icons">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+<script>
+  $('.modal').modal();
+</script>

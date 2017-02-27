@@ -9,12 +9,13 @@ from django.contrib.auth import login, logout
 from project.settings import APP_NAME
 from .models import Person
 from services.serializers import PersonSerializer
-import time
+import json
+# import time
 
 
 @login_required
 def home(req):
-    file_version = time.time()
+    # file_version = time.time()
     app_name = APP_NAME
     user = Person.objects.get(pk=req.user.pk)
     serializer = PersonSerializer(user, many=False)
@@ -32,12 +33,12 @@ class LoginHandler(View):
 
     def post(self, request, *args, **kwargs):
 
-        form = PersonForm(request.POST)
+        form = PersonForm(data=request.POST)
         if form.is_valid():
             user = form.get_or_create_user()
             login(request, user)
             return HttpResponse()
-        return HttpResponse(form.errors, status=400)
+        return HttpResponse(json.dumps(form.errors), content_type='application/json', status=400)  # NOQA
 
 
 def logout_handler(request):

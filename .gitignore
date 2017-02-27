@@ -9,3 +9,5 @@ log/**
 !log/placeholder
 media/**
 !media/**/init.txt
+yala.sublime-project
+yala.sublime-workspace

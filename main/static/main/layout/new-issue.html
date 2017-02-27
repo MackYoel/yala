@@ -1,0 +1,60 @@
+<div id="new-issue-modal" class="modal">
+    <div class="modal-content">
+      <h5 class="center">Nuevo Específico</h5>
+      <div class="row">
+
+        <form name="issueForm" ng-submit="saveIssue(issue, useCurrentTheme)" class="col s12" novalidate>
+          <div class="row">
+
+            <div style="padding-left: .7em">
+              <div class="switch">
+                <label>
+                  Elejir tema
+                  <input
+                    ng-model="useCurrentTheme" name="useCurrentTheme" ng-init="useCurrentTheme=true" type="checkbox">
+                  <span class="lever"></span>
+                  Tema actual
+                </label>
+              </div>
+            </div>
+
+            <br ng-show="!useCurrentTheme">
+            <div class="input-field col s12" ng-show="!useCurrentTheme">
+              <select ng-model="issue.theme" ng-required="!useCurrentTheme">
+                <option value="" selected>A que tema pertenece?</option>
+                <option ng-repeat="t in currentArea.themes" ng-value="{{t.pk}}" obj="t" init-select>{{t.name}}</option>
+              </select>
+              <label>Tema</label>
+            </div>
+            <!--  -->
+            <div class="input-field col s10">
+              <input autofocus="true"
+                name="name" 
+                ng-model="issue.name"
+                id="issue_name" type="text" class="validate" required>
+              <label for="issue_name">Nombre</label>
+            </div>
+            <div class="col s2">
+              <button class="btn waves-effect waves-light light-green send-button" type="submit" name="action"
+                ng-disabled="issueForm.$invalid || loading">
+                <span ng-show="loading">...</span>
+                <i ng-hide="loading" class="tiny material-icons">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  <!-- <div class="modal-footer">
+    <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+    <a
+      ng-disabled="issueForm.$invalid || loading"
+      ng-click="saveIssue(issue)"
+      class="modal-action waves-effect waves-green btn-flat light-green">{{wrap('add')}}</a>
+  </div> -->
+</div>
+<script>
+  $('.modal').modal();
+  $('select').material_select();
+</script>

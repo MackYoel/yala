@@ -1,0 +1,9 @@
+<ul class="tabs tabs-fixed-width blue-grey darken-2 ">
+  <li ng-repeat="a in areas" class="tab col" >
+    <a ng-click="getThemes(a)" click-to-first-tab>{{a.name}}</a>
+    <!-- <a ng-click="getThemes(a)" >{{a.name}}</a> -->
+  </li>
+</ul>
+<script type="text/javascript">
+  $('ul.tabs').tabs()
+</script>

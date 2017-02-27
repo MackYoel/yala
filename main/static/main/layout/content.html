@@ -1,64 +1,54 @@
-<div class="row" id="tabs-block">
-  <div class="col s12">
-    <ul class="tabs">
-      <li ng-repeat="a in areas" class="tab col s3">
-        <a click-to-first-tab>{{a.name}}</a>
-      </li>
-      
-      <!-- <li class="tab col s3"><a class="active" href="#test1">aa</a></li> -->
-      <!-- <li class="tab col s3"><a  href="#test2">Test 2</a></li>
-      <li class="tab col s3"><a href="#test4">Test 4</a></li> -->
-    </ul>
-  </div>
+<div class="row" id="app-content">
+  <div ng-repeat="c in contents" class="col s12" show-first-content-tab>
+    <ul class="collapsible popout" data-collapsible="accordion">
+      <li ng-repeat="t in c.themes" init-collapsibles>
+        <div
+          class="collapsible-header"
+          ng-click="setCurrentTheme(t.pk)" show-first-theme>
 
-  <!-- <div ng-cloak ng-repeat="a in areas"> -->
-  <div ng-repeat="c in contents" class="col s12" show-first-content-tab>{{c.name}} {{$index}}</div>
-  <!-- </div> -->
-  <!-- <div id="test2" class="col s12">Test sss2</div>
-  <div id="test4" class="col s12">Test 4</div> -->
-</div>
+          <span class="new badge grey lighten-3 blue-text text-darken-2"
+            ng-class="{'lighten-2': currentTheme==t.pk||currentTheme==null&&$index==0}"
+            data-badge-caption="{{ (t.issues | filter: {completed: false}).length==1?'pendiente': 'pendientes'}}">{{ (t.issues | filter: {completed: false}).length }}</span>
+          <span class="new badge green lighten-3"
+            ng-class="{'lighten-1': currentTheme==t.pk||currentTheme==null&&$index==0}"
+            data-badge-caption="{{ (t.issues | filter: {completed: true}).length==1?'yala': 'yalas'}}">
+            {{ (t.issues | filter: {completed: true}).length }}</span>
+          <i class="material-icons">assignment</i>{{t.name}}
 
-<div class="fixed-action-btn">
-  <a class="btn-floating btn-large green">
-    <i class="large material-icons">add</i>
-  </a>
-  <ul>
-    <li>
-      Área<a id="add-area" ng-click="addArea()" class="btn-floating green"><i class="material-icons">library_books</i></a>
-    </li>
-    <li>
-      Tema<a class="btn-floating green"><i class="material-icons">assignment</i></a>
-    </li>
-    <li>
-      Problema<a class="btn-floating green"><i class="material-icons">note_add</i></a>
-    </li>
-  </ul>
-</div>
-
-<!-- Modal Trigger -->
-<!-- <a class="waves-effect waves-light btn" href="#modal1">Modal</a> -->
-
-<!-- Modal Structure -->
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <h5 class="center">Agregar nueva área</h5>
-    <div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="area_name" type="text" class="validate" required>
-            <label for="area_name">Nombre</label>
-          </div>
         </div>
-      </form>
+        <div class="collapsible-body">
+          <table>
+            <tbody>
+              <tr ng-repeat="i in t.issues">
+                <td>{{i.name}}</td>
+
+                <td class="issue-actions right-align">
+                    <a class="waves-effect waves-gray btn-floating teal lighten-5" ng-hide="i.completed"
+                      ng-class="{'lighten-3': i.doing==true}" ng-model="i.doing">
+                      <i ng-show="i.doing" class="material-icons  cyan lighten-2" ng-click="issueAction(i, 'end')">pause</i>
+                      <i ng-hide="i.doing" class="material-icons cyan-text darken-2" ng-click="issueAction(i, 'start')">play_arrow</i>
+                    </a>
+
+                    <div class="switch">
+                      <label>
+                        pendiente
+                        <input type="checkbox" ng-model="i.completed" ng-click="issueAction(i, 'complete')">
+                        <span class="lever"></span>
+                        yala
+                      </label>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+    </ul>
     </div>
-    </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat light-green">Agregar</a>
   </div>
 </div>
+
 <script type="text/javascript">
-  $('.modal').modal();
-  $('ul.tabs').tabs()
+  // $('ul.tabs').tabs()
+  $(".button-collapse").sideNav();
 </script>

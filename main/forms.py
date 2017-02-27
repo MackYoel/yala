@@ -18,7 +18,6 @@ class PersonForm(forms.ModelForm):
             email = '{}@anon.com'.format(name.lower())
             self.cleaned_data['email'] = email
 
-        self.cleaned_data['username'] = email
         return self.cleaned_data
 
     def get_or_create_user(self):
@@ -26,4 +25,7 @@ class PersonForm(forms.ModelForm):
         try:
             return Person.objects.get(email=email)
         except Person.DoesNotExist:
-            return self.save()
+            user = self.save(commit=False)
+            user.username = email
+            user.save()
+            return user

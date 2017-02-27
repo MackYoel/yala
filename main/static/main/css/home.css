@@ -1,6 +1,9 @@
 body{
 	/*height: 1200px;*/
 }
+#app-content{
+	margin-top: 59px;
+}
 .menu{
 	color: #555;
 }
@@ -22,6 +25,7 @@ body{
 	height: 65px;
 }
 #app-name{
+	margin-left: .5em;
 	font-family: "Comic Sans MS", cursive, sans-serif;
 	color: #7cb342;
 	font-weight: bold;
@@ -33,18 +37,70 @@ nav{
 .floating-btn{
 	text-align: right;
 }
+.fixed-action-btn li span {
+	background: #333;
+	color: #ddd;
+	padding: 0 4px;
+	border-radius: 3px;
+}
 .tabs li a {
-    color: #00acc1 !important;
+    color: #dcedc8 !important;
 }
 .tabs .indicator {
-    background-color: #00acc1 !important;
+    background-color: #dcedc8 !important;
+    height: 3px
 }
 .center{
 	text-align: center;
 }
 
-@media (min-width: 993px) {
-	#app-name{
-		margin-left: .5em;
+.switch label input[type=checkbox]:checked+.lever{
+	background-color: #66bb6a;
+}
+.switch label .lever{
+	background-color: #e0e0e0;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after{
+	background-color: #87dca5;
+}
+.issue-actions{
+	width: 215px;
+	min-width: 215px;
+}
+.issue-actions a{
+	width: 32px;
+	height: 32px;
+	float: left;
+}
+.issue-actions a i{
+	line-height: 26pt;
+}
+
+.collapsible-body{
+	background-color: #fff;
+}
+.send-button{
+	margin-top: 23px;
+    padding: 0 5px;
+}
+
+@media only screen and (max-width : 768px){
+	.issue-actions{
+		width: 160px;
+		min-width: 160px;
+		text-align: center;
+	}
+	.issue-actions .switch{
+		clear: both;
+		display: block;
+	}
+	.issue-actions a{
+		margin-bottom: 10px;
+		margin-left: 40%;
+		display: block;
+	}
+	.issue-actions a i{
+		clear: both;
 	}
 }

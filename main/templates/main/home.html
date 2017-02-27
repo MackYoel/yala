@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html ng-app="mainApp" ng-init="user={{user|safe}}">
 <head>
@@ -9,7 +10,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'main/css/home.css' %}?{{file_version}}">
 </head>
-<body ng-controller="MainCtrl">
+<body id="MainCtrl" ng-controller="MainCtrl" class="blue-grey lighten-5">
 
 <div id="loader">
   <img src="{% static 'main/imgs/box.gif' %}"><br>
@@ -21,38 +22,62 @@
   <ul id="dropdown1" class="dropdown-content">
     <li><a href="{% url 'main:logout_handler' %}">cerrar&nbsp;sesión</a></li>
   </ul>
+  <div class="navbar-fixed">    
+    <nav class="nav-extended blue-grey darken-2">
+      <div class="nav-wrapper">
+        <a href="#!" class="left brand-logo" id="app-name">{{app_name}}</a>
+        <ul class="right">
+          <li id="avatar">
+            <a class="dropdown-button" href="#!" data-activates="dropdown1">
+            <img src="{{user.picture}}">
+            <i class="material-icons right">arrow_drop_down</i></a>
+          </li>
+        </ul>
+      </div>
 
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo" id="app-name">{{app_name}}</a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse menu"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-        <li id="avatar">
-          <a class="dropdown-button" href="#!" data-activates="dropdown1">
-          <img src="{{user.picture}}">
-          <i class="material-icons right">arrow_drop_down</i></a>
-        </li>
-      </ul>
-      <ul class="side-nav" id="mobile-demo">
-        <li><a href="{% url 'main:logout_handler' %}">cerrar&nbsp;sesión</a></li>
-      </ul>
-    </div>
-  </nav>
-  <div ng-include src="'{% static 'main/layout/content.html' %}?{{file_version}}'" ></div>
+      <div class="nav-content">
+        <div ng-include src="'{% static 'main/layout/tabs.html' %}?{{file_version}}'" ></div>
+      </div>
+    </nav>
+  </div>
+{% verbatim %}
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large blue-grey darken-2">
+      <i class="large material-icons">add</i>
+    </a>
+    <ul>
+      <li class="new-area-modal-target">
+        <span>Área</span><a class="btn-floating blue-grey darken-2"><i class="material-icons">library_books</i></a>
+      </li>
+      <li class="new-theme-modal-target">
+        <span>Tema</span><a class="btn-floating blue-grey darken-2" ng-disabled="!currentArea"><i class="material-icons">assignment</i></a>
+      </li>
+      <li class="new-issue-modal-target">
+        <span>Específico</span><a class="btn-floating blue-grey darken-2"
+          ng-disabled="!currentArea || !currentArea.currentTheme"><i class="material-icons">note_add</i></a>
+      </li>
+    </ul>
+  </div>
+{% endverbatim %}
+
+  <div class="content">
+    <div ng-include src="'{% static 'main/layout/content.html' %}?{{file_version}}'" ></div>
+  </div>
+
+  <div class="modal-container">
+    <div ng-include src="'{% static 'main/layout/new-area.html' %}?{{file_version}}'" onload="assignEvents('area')"></div>
+    <div ng-include src="'{% static 'main/layout/new-theme.html' %}?{{file_version}}'" onload="assignEvents('theme')"></div>
+    <div ng-include src="'{% static 'main/layout/new-issue.html' %}?{{file_version}}'" onload="assignEvents('issue')"></div>
+  </div>
 
 </div>
-
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.2/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 <script src="https://code.angularjs.org/1.5.0/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.5.1/angular-resource.min.js"></script>
-<script>
-  $(".button-collapse").sideNav();
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.js"></script>
+
 <script src="{% static 'main/js/home.js' %}?{{file_version}}"></script>
 <script src="{% static 'main/js/services.js' %}?{{file_version}}"></script>
+
 </body>
 </html>

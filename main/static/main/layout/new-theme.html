@@ -1,0 +1,49 @@
+<div id="new-theme-modal" class="modal">
+    <div class="modal-content">
+      <h5 class="center">Nuevo Tema</h5>
+      <div class="row">
+        <form name="themeForm" ng-submit="saveTheme(theme, useCurrentArea)" class="col s12">
+          <div class="row">
+            <div style="padding-left: .7em">
+              <div class="switch">
+                <label>
+                  Elejir Area
+                  <input
+                    ng-model="useCurrentArea" ng-init="useCurrentArea=true" type="checkbox">
+                  <span class="lever"></span>
+                  Area actual
+                </label>
+              </div>
+            </div>
+            <br ng-show="!useCurrentArea">
+            <div class="input-field col s12" ng-show="!useCurrentArea">
+              <select ng-model="theme.knowledge_area" ng-required="!useCurrentArea">
+                <option value="" selected>Choose your option</option>
+                <option ng-repeat="a in areas" value="{{a.pk}}" obj="a" init-select>{{a.name}} - {{a.pk}}</option>
+              </select>
+              <label>Area</label>
+            </div>
+
+            <div class="input-field col s10">
+              <input autofocus="true" 
+                ng-model="theme.name"
+                id="theme_name" type="text" class="validate" required novalidate>
+              <label for="theme_name">Nombre</label>
+            </div>
+            <div class="col s2">
+              <button class="btn waves-effect waves-light light-green send-button" type="submit" name="action"
+                ng-disabled="themeForm.$invalid || loading">
+                <span ng-show="loading">...</span>
+                <i ng-hide="loading" class="tiny material-icons">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+</div>
+<script>
+  $('.modal').modal();
+  $('select').material_select();
+</script>
