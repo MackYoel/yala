@@ -44,3 +44,8 @@ class LoginHandler(View):
 def logout_handler(request):
     logout(request)
     return redirect(reverse('main:LoginHandler'))
+
+
+@login_required
+def analitycs(req):
+    return render(req, 'main/analitycs.html', locals())
