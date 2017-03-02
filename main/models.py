@@ -44,10 +44,13 @@ class Theme(models.Model):
 
 class Issue(models.Model):
     theme = models.ForeignKey(Theme, related_name='issues', on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     doing = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = (("theme", "name"),)
 
     def __str__(self):
         return self.name
