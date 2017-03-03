@@ -12,6 +12,9 @@ from services.serializers import PersonSerializer
 import json
 # import time
 
+@login_required
+def ss(req):
+    return render(req, 'main/home.html', locals())
 
 @login_required
 def home(req):
