@@ -30,7 +30,11 @@
         <ul class="right">
           <li id="avatar">
             <a class="dropdown-button" href="#!" data-activates="dropdown1">
-            <img src="{{user.picture}}">
+            {% if user.picture%}
+              <img src="{{user.picture}}">
+            {% else %}
+              <i class="material-icons right">perm_identity</i>
+            {% endif %}
             <i class="material-icons right">arrow_drop_down</i></a>
           </li>
         </ul>

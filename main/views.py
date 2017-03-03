@@ -32,7 +32,11 @@ class LoginHandler(View):
     def get(self, request, *args, **kwargs):
         is_authenticated = request.user.is_authenticated()
         app_name = APP_NAME
-        return render(request, self.template_name, locals())
+
+        if request.path == '/login/':
+            return render(request, self.template_name, locals())
+
+        return render(request, 'main/sign-up.html', locals())
 
     def post(self, request, *args, **kwargs):
 
@@ -40,7 +44,9 @@ class LoginHandler(View):
         if form.is_valid():
             user = form.get_or_create_user()
             login(request, user)
-            return HttpResponse()
+            if request.is_ajax():
+                return HttpResponse()
+            return redirect(reverse('main:home'))
         return HttpResponse(json.dumps(form.errors), content_type='application/json', status=400)  # NOQA
 
 

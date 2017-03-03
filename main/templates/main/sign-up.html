@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{app_name}}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		h1{
+			color: #92a500;
+			font-family: "Comic Sans MS", cursive, sans-serif;
+		}
+		form{
+			color: #888;
+		}
+	</style>
+</head>
+<body>
+<center>
+	<h1>{{app_name}}</h1>
+	<form class="signup-form" method="POST" action="{% url 'main:LoginHandler' %}">
+		{% csrf_token %}
+		<table>
+			<tr><td>email</td><td><input type="email" name="email" required></td></tr>
+			<tr><td>nombre</td><td><input type="text" name="first_name" required></td></tr>
+			<tr><td>apellido</td><td><input type="text" name="last_name" required></td></tr>
+		</table>
+		<br>
+		<button type="submit">Crear</button>
+	</form>
+	<br>
+	<a href="/login/">Inicia sesión con Facebook</a>
+</center>
+
+</body>
+</html>
