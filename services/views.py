@@ -60,6 +60,7 @@ class IssueList(APIView):
         return Response(serializer.data)
 
     def post(self, request, theme_pk):
+        request.data['person'] = request.user.pk
         serializer = IssueSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

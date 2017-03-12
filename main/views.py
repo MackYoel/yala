@@ -7,14 +7,17 @@ from .forms import PersonForm
 from django.http import HttpResponse
 from django.contrib.auth import login, logout
 from project.settings import APP_NAME
-from .models import Person
+from .models import Person, Issue, Session
 from services.serializers import PersonSerializer
 import json
+from datetime import timedelta, datetime, timezone
 # import time
+
 
 @login_required
 def ss(req):
     return render(req, 'main/home.html', locals())
+
 
 @login_required
 def home(req):
@@ -57,4 +60,20 @@ def logout_handler(request):
 
 @login_required
 def analitycs(req):
+    today = datetime.now().replace(hour=0, minute=0, second=0)
+    weekstart = today - timedelta(days=today.weekday())
+    weekend = weekstart.replace(hour=23, minute=59, second=59) + timedelta(days=6)  # NOQA
+    issues = Issue.objects.filter(completed_at__range=(weekstart, weekend),  person=req.user)
+    data = [['Lunes', 0], ['Martes', 0], ['Miércoles', 0], ['Jueves', 0], ['Viernes', 0], ['Sábado', 0], ['Domingo', 0]]  # NOQA
+
+    for i in issues:
+        completed_at = i.completed_at.replace(tzinfo=timezone.utc).astimezone(tz=None)  # NOQA
+        data[completed_at.weekday()][1] += 1
+
+    sessions = Session.objects.filter(
+        person=req.user,
+        starts_at__year=today.year,
+        starts_at__month=today.month,
+        starts_at__day=today.day)
+
     return render(req, 'main/analitycs.html', locals())

@@ -15,11 +15,11 @@ class ThemeAdmin(admin.ModelAdmin):
 
 
 class IssueAdmin(admin.ModelAdmin):
-    list_display = ('name', 'theme', 'completed', 'doing', 'created_at')
+    list_display = ('name', 'person', 'theme', 'completed', 'completed_at', 'doing', 'created_at')
 
 
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ('issue', 'pk', 'starts_at', 'ends_at', 'active',
+    list_display = ('issue', 'pk', 'person', 'starts_at', 'ends_at', 'active',
                     'closed_to_force')
 
 

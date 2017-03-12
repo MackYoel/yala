@@ -43,10 +43,12 @@ class Theme(models.Model):
 
 
 class Issue(models.Model):
+    person = models.ForeignKey(Person, null=True)
     theme = models.ForeignKey(Theme, related_name='issues', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     doing = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
+    completed_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -56,7 +58,7 @@ class Issue(models.Model):
         return self.name
 
     def start_session(self):
-        session = Session(issue=self)
+        session = Session(issue=self, person=self.person)
         session.save()
         self.doing = True
         self.save()
@@ -83,6 +85,7 @@ class Issue(models.Model):
 
     def complete(self):
         self.end_session()
+        self.completed_at = timezone.now()
         self.completed = True
         self.save()
 
@@ -92,6 +95,7 @@ class Issue(models.Model):
 
 
 class Session(models.Model):
+    person = models.ForeignKey(Person, null=True)
     issue = models.ForeignKey(Issue)
     starts_at = models.DateTimeField(auto_now_add=True)
     ends_at = models.DateTimeField(null=True, blank=True)

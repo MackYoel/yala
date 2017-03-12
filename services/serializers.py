@@ -31,7 +31,7 @@ class IssueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Issue
-        fields = ('pk', 'theme', 'name', 'doing', 'completed', 'created_at')
+        fields = ('pk', 'person', 'theme', 'name', 'doing', 'completed', 'created_at')
 
 
 class ThemeSerializer(serializers.ModelSerializer):

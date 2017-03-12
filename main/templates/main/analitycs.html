@@ -1,9 +1,70 @@
-<!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
-analitycs here...
-</body>
+  <head>
+  	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      var issues = {{data|safe}};
+      issues.unshift(['Días', 'tareas'])
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart', 'timeline'], 'language': 'es'});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      // google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(draw);
+
+      function draw(){
+      	var data = google.visualization.arrayToDataTable(issues);
+
+      	var options = {
+          title: 'Número de tareas completadas',
+          hAxis: {title: 'Días',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0},
+          legend: {position: 'top'}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+
+
+    	{% if sessions %}
+        var timeline = new google.visualization.Timeline(document.getElementById('timeline'));
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({ type: 'string', id: 'Term' });
+        dataTable.addColumn({ type: 'string', id: 'issue' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+
+        var rows = [
+    	{% for s in sessions %}
+    		[ 'lapso', '{{s.issue}}', new Date('{{s.starts_at|date:'Y-m-d H:i'}}'), {% if s.ends_at %}new Date('{{s.ends_at|date:'Y-m-d H:i'}}'){% else %}new Date(){% endif %}],
+    	{% endfor %}
+        ]
+        console.log('rows:', rows)
+
+        var options = {
+          title: 'Número de tareas asdasd',
+	      timeline: { 
+	      	showRowLabels: false,
+	      	groupByRowLabel: true
+	      }
+	    };
+        dataTable.addRows(rows);
+        timeline.draw(dataTable, options)
+    	{% endif %}
+
+      }
+
+    </script>
+  </head>
+
+  <body>
+
+  	<h3><a href="/" style="color: #2f9e4e"><< Regresar</a> {{user.first_name}}, he aquí algunos datos :)</h3>
+  	{% if sessions %}<h4>Resumen del día</h4>{% else %}<h4>Parece que hoy no registraste actividad para el resumen del día</h4>{% endif %}
+    <div id="timeline"></div>
+    <div id="chart_div"></div>
+  </body>
 </html>
